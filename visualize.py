@@ -2,7 +2,8 @@ from keras.utils import to_categorical
 import keras.backend as K
 import numpy as np
 from matplotlib import pyplot as plt
-from model import load_mnist, center_loss_model
+from models import raw_cls_model, center_loss_model_embedding, center_loss_model_custom
+from dataLoader import load_mnist
 
 
 x_test, y_test = load_mnist()
@@ -11,9 +12,18 @@ y_test = y_test[:1000]
 y_test_one_hot = to_categorical(y_test)
 
 
-# model
-model = center_loss_model()
-model.load_weights("./centerloss_weights_31_val_acc_0.942.h5", by_name=True)
+# # raw cls model
+# model = raw_cls_model()
+# model.load_weights("rawmodel_weights_08_val_acc_0.994.h5", by_name=True)
+# func = K.function([model.input],[model.get_layer('out1').output])   # single-input
+
+# # embedding model
+# model = center_loss_model_embedding()
+# model.load_weights("embedding_weights_96_val_acc_0.994.h5", by_name=True)
+
+# custom model
+model = center_loss_model_custom()
+model.load_weights("custom_weights_01_val_acc_0.730.h5", by_name=True)
 
 # predict
 func = K.function([model.input[0]],[model.get_layer('out1').output])   # one of the multi-input
