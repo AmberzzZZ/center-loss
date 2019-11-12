@@ -17,3 +17,12 @@
     2. using the batch center and a learning rate alpha to update the center
         the center is computed through the call function defined in the custom layer
         we know what actually happened through the pipeline
+
+
+## 4. learning rate
+    学习率的选择很重要，大了不收敛，小了收敛贼慢
+
+
+## 5. results
+    raw: 数据可分，但是类内差异较大，因此数据整体分布呈现长椭圆形，raw_ep9
+    centerloss：相比之下，数据更聚集，custom_ep3

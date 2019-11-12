@@ -23,7 +23,7 @@ y_test_one_hot = to_categorical(y_test)
 
 # custom model
 model = center_loss_model_custom()
-model.load_weights("custom_weights_01_val_acc_0.730.h5", by_name=True)
+model.load_weights("custom_weights_03_val_acc_0.856.h5", by_name=True)
 
 # predict
 func = K.function([model.input[0]],[model.get_layer('out1').output])   # one of the multi-input

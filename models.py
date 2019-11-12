@@ -90,7 +90,7 @@ def center_loss_model_custom():
     # plot_model(model, to_file='images/center_loss_model_custom.png', show_shapes=True, show_layer_names=True)
 
     lambda_c = 1
-    model.compile(optimizer=SGD(lr=1e-4, momentum=0.9, decay=0.01, nesterov=True),
+    model.compile(optimizer=SGD(lr=3e-4, momentum=0.9, decay=0.01, nesterov=True),
                   loss=["categorical_crossentropy",lambda y_true,y_pred:y_pred],
                   loss_weights=[1,lambda_c/2.], metrics=["acc"])
 
@@ -107,7 +107,7 @@ if __name__ == '__main__':
 
 
     # train raw cls model
-    model = raw_cls_model()
+    # model = raw_cls_model()
     # filepath = "./rawmodel_weights_{epoch:02d}_val_acc_{val_acc:.3f}.h5"
     # checkpoint = ModelCheckpoint(filepath, verbose=1, monitor="val_loss", mode='min', save_best_only=True)
     # model.fit(x_train, y_train_onehot,
@@ -117,7 +117,7 @@ if __name__ == '__main__':
 
 
     # train embedding model
-    model = center_loss_model_embedding()
+    # model = center_loss_model_embedding()
     # filepath = "./embedding_weights_{epoch:02d}_val_acc_{val_dense_2_acc:.3f}.h5"
     # checkpoint = ModelCheckpoint(filepath, verbose=1, monitor="val_dense_2_loss", mode='min', save_best_only=True)
     # model.fit(x=[x_train, y_train], 
@@ -129,14 +129,14 @@ if __name__ == '__main__':
 
     # train custom model
     model = center_loss_model_custom()
-    model.load_weights("rawmodel_weights_08_val_acc_0.994.h5", by_name=True)
-    filepath = "./custom_weights_{epoch:02d}_val_acc_{val_dense_6_acc:.3f}.h5"
-    checkpoint = ModelCheckpoint(filepath, verbose=1, monitor="val_dense_6_loss", mode='min', save_best_only=True)
+    model.load_weights("custom_weights_08_val_acc_0.937.h5", by_name=True)
+    filepath = "./custom_weights_{epoch:02d}_val_acc_{val_dense_2_acc:.3f}.h5"
+    checkpoint = ModelCheckpoint(filepath, verbose=1, monitor="val_dense_2_loss", mode='min', save_best_only=True)
     model.fit(x=[x_train, y_train_onehot], 
               y=[y_train_onehot, dummy_matrix], 
               batch_size=512, epochs=100, verbose=1, 
               validation_split=0.2, 
-              callbacks=[checkpoint, EarlyStopping(monitor="val_dense_6_loss",patience=20)])
+              callbacks=[checkpoint, EarlyStopping(monitor="val_dense_2_loss",patience=20)])
 
 
 
