@@ -13,7 +13,7 @@
     1. using the GT label to embed a (1,2) vector standing for the center
         the center is updated along with the changement of the embedding layers' weights
         the entire layer is a black box to us
-
+    
     2. using the batch center and a learning rate alpha to update the center
         the center is computed through the call function defined in the custom layer
         we know what actually happened through the pipeline
@@ -26,3 +26,8 @@
 ## 5. results
     raw: 数据可分，但是类内差异较大，因此数据整体分布呈现长椭圆形，raw_ep9
     centerloss：相比之下，数据更聚集，custom_ep3
+
+
+## 6. todolist
+    6.1 triplet-center loss: 普通分类只是在找类间边界而没有考虑类内变化，而center loss减小了类内变化，但是考虑类间距离，容易造成类间重叠。
+​	<img src="/Users/amber/workspace/centerloss/images/TCL.png" style="zoom:50%;" />
